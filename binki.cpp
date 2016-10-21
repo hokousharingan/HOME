@@ -3,9 +3,10 @@
 #include <algorithm>
 using namespace std;
 #define POTEGA(i) ( 1.0 / (pow(2, (i) + 1)))
-
+#define POT(i) ( 1.0 / (pow(2, (i) )))
 string tobin(double);
 double todec(string);
+string tobin2(double);
 
 int main(){
 //========================================================	WPROWADZANIE
@@ -22,6 +23,9 @@ int main(){
 //========================================================	TOBIN
 	//========== Przelicz
 	b = tobin(a);
+	//========== Wypisz	
+	cout << "0." << b <<endl<<endl;	
+	b = tobin2(a);
 	//========== Wypisz	
 	cout << "0." << b <<endl<<endl;	
 //========================================================	TODEC
@@ -61,5 +65,29 @@ double todec(string b){
 	
 return c;	
 }
+	//========== ZMIANA NA BINARKE2
+string tobin2(double a ){	
+	string b="";
+	double pot;
+	int i = 1;
+	
+while  (a != 0 ){
+
+	pot = POT(i);
+	
+	if ( a >= pot ) {
+		b += "1";
+		a -= pot;
+	}
+	else b += "0";
+	
+	i++;
+}
+	
+return b;	
+	
+}
 
 
+
+	
