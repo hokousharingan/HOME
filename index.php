@@ -96,11 +96,22 @@
 		
 		$conn =  mysqli_connect('localhost', 'root', '', 'witam');
 			if (!$conn) die('Not connected : ' . mysql_error());
-		
-			$sql = "INSERT INTO wyniki (kiedy, ilosc) VALUES (CURRENT_DATE,'".$_SESSION['count']."')";
+			
+			$sql = "select kiedy from wyniki where kiedy = CURRENT_DATE ";
+			$result = $conn->query($sql);
+			
+			if ($result->num_rows > 0) {
+				$sql = "UPDATE wyniki SET ilosc='".$_SESSION['count']."' where kiedy=CURRENT_DATE ";
+				
+				if (mysqli_query($conn, $sql)) {} 
+				else echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			
+			}else {
+				$sql = "INSERT INTO wyniki (kiedy, ilosc) VALUES (CURRENT_DATE,'".$_SESSION['count']."')";
 
-			if (mysqli_query($conn, $sql)) {} 
-			else echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+				if (mysqli_query($conn, $sql)) {} 
+				else echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			}
 
 		mysqli_close($conn);
 
